@@ -1,0 +1,1616 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>{$live.title}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no"/>
+    <meta charset="UTF-8">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-touch-fullscreen" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="format-detection" content="telephone=no">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="x5-orientation" content="portrait">
+    <link rel="stylesheet" href="https://cdn2.qnzsvk.cn/live/Home/css/video-js.css">
+    <!--<link rel="stylesheet" href="https://cdn2.qnzsvk.cn/static/20170704/Home/css/videoPlay.css">-->
+    <link rel="stylesheet" href="__CSS__/videoPlay.css?v=112">
+    <link rel="stylesheet" href="https://cdn2.qnzsvk.cn/live/Home/css/swiper-3.4.2.min.css">
+    <link rel="stylesheet" href="https://cdn2.qnzsvk.cn/live/Home/css/reset.css">
+    <link rel="stylesheet" href="http://cdn.qnzsvk.cn/live/Home/css/weui.min.css">
+    <script>
+      (function () {
+        window.oncontextmenu = function (event) {
+          if (event.target.nodeName === 'P') {
+            event.preventDefault();
+            event.stopPropagation();
+            return false;
+          }
+        }
+      })();
+    </script>
+    <link rel="stylesheet" href="videoPlay.css">
+    <style>
+        body, html {
+            -webkit-overflow-scrolling: touch;
+        }
+
+        main {
+            -webkit-appearance: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .stick {
+            position: fixed;
+            top: calc(21vh + 12vh);
+            right: 20px;
+            display: none;
+        }
+
+        .stick .stick-top {
+            margin-bottom: 3vh;
+        }
+
+        .stick .stick-top, .stick .stick-bottom {
+            width: 4.5vh;
+            height: 4.5vh;
+
+        }
+
+        .stick img {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<!-- 广告-->
+<aside class="swiper-container">
+    <span class="aside-close">×</span>
+    <div class="swiper-wrapper">
+        <volist name='ad' id='vo'>
+            <a href="{$vo.adurl}" class="swiper-slide">
+                <img src='{$vo.adpath}' alt="">
+                <p class="slide-decor">
+                    <span>{$vo.ad_jieshao}</span>
+                </p>
+            </a>
+        </volist>
+    </div>
+    <div class="swiper-pagination"></div>
+</aside>
+
+<!-- 直播界面 -->
+<main>
+    <div class="main-box">
+        <!-- 选项卡 -->
+        <div class="switch-nav">
+            <div class="chating switch-nav-active">互动</div>
+            <div class="course-details">
+                <!--{$live.kcxq}-->123
+            </div>
+        </div>
+        <!-- 聊天会话 -->
+        <div class="main-content" style="overflow-y: auto;overflow-x: hidden;">
+            <div class="dialogue">
+                <div class="dial-content">
+                    <!-- 听课需知 -->
+                    <div class="couse-know-box">
+                        <div class="title">听课须知<span>×</span></div>
+                        <div class="content">1. 听不到声音请往下翻点击语音即可播放，并确认手机没有静音，若不行可切换网络或重新进入<br> 2. 遇到卡顿和加载不出，可刷新本页或重新进入
+                            <br> 3. 大家可在下方评论区提问和交流 <br>4. 课程语音永久保留，无限复听
+                        </div>
+                    </div>
+                    <!-- <div class="dia-mask"></div>-->
+                    <div class="dial-chat"></div>
+                </div>
+            </div>
+            <!--  上下置顶置低按钮 -->
+            <div class="stick">
+                <div class="stick-top">
+                    <img src="https://cdn2.qnzsvk.cn/live/Home/images/live_backtotop_btn@2x.png" alt="">
+                </div>
+                <div class="stick-bottom">
+                    <img src="https://cdn2.qnzsvk.cn/live/Home/images/live_backtobottom_btn@2x.png" alt="">
+                </div>
+            </div>
+            <!-- 弹幕 -->
+            <div class="classroom-discuss-area">
+                <div class="discuss-list">
+                    <div class="discuss-comm-list"></div>
+                    <div class="buttons">
+                        <div class="discuss" style="bottom:0">弹</div>
+                    </div>
+                </div>
+            </div>
+            <!-- 弹幕详情 -->
+            <div class="bullet-panel">
+                <div class="weui-mask" style="bottom:50px"></div>
+                <div class="reward-rank-panel">
+                    <div class="header">
+                        <div class="navbar">
+                            <div class="nav-item active">最新评论</div>
+                            <div class="nav-item">赞赏排行</div>
+                        </div>
+                        <span class="close">×</span>
+                    </div>
+                    <div class="body">
+                        <div class="comment-bullet"></div>
+                        <div class="ranking-bullet"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+</main>
+<!-- 聊天发送窗口 -->
+<footer>
+    <!-- 用户页面 -->
+    <!-- <div class="com_form">
+         <div class="gift_menu_btn">
+             礼物
+         </div>
+         <div class="txt-wrap">
+             <input type="text" placeholder="说点什么吧..." maxlength="30">
+         </div>
+         <button type="button">发送</button>
+     </div>-->
+    <!-- 主持人页面 -->
+    <div class="com_form">
+        <div class=" com-btn voice_btn ">
+            <img src="https://cdn2.qnzsvk.cn/live/Home/images/voice_btn.png" alt="">
+        </div>
+        <div class="txt-wrap">
+            <input type="text" placeholder="说点什么吧..." maxlength="30">
+        </div>
+        <div class="other">
+            <!--  <button type="button" class="send-message">发送</button>-->
+            <img src="https://cdn2.qnzsvk.cn/live/Home/images/live_addphoto_btn@2x.png" alt="" class="upPic">
+        </div>
+    </div>
+</footer>
+
+<!-- 礼物面板 -->
+<div class="gift-page">
+    <h4>礼物中心</h4>
+    <ul class="gift-list">
+        <li>
+            <a class="btn_gift">
+                <div>
+                    <img src="https://cdn2.qnzsvk.cn/live/Home/images/gift_sunflower_btn@3x.png" alt="">
+                </div>
+                <span class="giftName">鲜花</span>
+                <span class="giftMoney">￥2.0</span>
+            </a>
+        </li>
+        <li>
+            <a class="btn_reward">
+                <div><img src="https://cdn2.qnzsvk.cn/live/Home/images/gift_givereward_btn@3x.png" alt=""></div>
+                <span class="giftName">红包</span>
+                <span class="giftMoney">￥6.0</span>
+            </a>
+        </li>
+        <li>
+            <a class="btn_hand">
+                <div>
+                    <img src="https://cdn2.qnzsvk.cn/live/Home/images/gift_clap_btn@3x.png" alt="">
+                </div>
+                <span class="giftName">掌声</span>
+                <span class="giftMoney">￥8.0</span>
+            </a>
+        </li>
+        <li>
+            <a class="btn_car">
+                <div>
+                    <img src="https://cdn2.qnzsvk.cn/live/Home/images/gift_car_btn@3x.png" alt="">
+                </div>
+                <span class="giftName">汽车</span>
+                <span class="giftMoney">￥16.0</span>
+            </a>
+        </li>
+        <li>
+            <a class="btn_boot">
+                <div>
+                    <img src="https://cdn2.qnzsvk.cn/live/Home/images/gift_ship_btn@3x.png" alt="">
+                </div>
+                <span class="giftName">轮船</span>
+                <span class="giftMoney">￥38.0</span>
+            </a>
+        </li>
+        <li>
+            <a class="btn_fire">
+                <div>
+                    <img src="https://cdn2.qnzsvk.cn/live/Home/images/gift_rocket_btn@3x.png" alt="">
+                </div>
+                <span class="giftName">火箭</span>
+                <span class="giftMoney">￥88.0</span>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+<!-- 遮罩层 -->
+<mask></mask>
+
+
+<input type="hidden" value="{$client.header}" id="header">
+<input type="hidden" value="{$client.name}" id="name">
+<input type="hidden" value="{$live.id}" id="liveId">
+<input type="hidden" value="{$live.teachername}" id="liveteacher">
+<input type="hidden" value="1" id="ok">
+
+
+<!-- odian -->
+<script type="text/javascript" src="http://cdn.aodianyun.com/mps/v1/lssplayer.js"></script>
+<script type="text/javascript" src="http://cdn.aodianyun.com/dms/rop_client.js">
+</script>
+<!-- videoJs -->
+<script src="https://vjs.zencdn.net/5.18.4/video.min.js"></script>
+<script src="https://cdn2.qnzsvk.cn/live/Home/js/videojs-ie8.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-hls/5.5.0/videojs-contrib-hls.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/videojs-contrib-hls/5.5.0/videojs-contrib-hls.min.js"></script>
+
+<!-- 原生js -->
+<script src="https://cdn2.qnzsvk.cn/live/Home/js/swiper-3.4.2.min.js"></script>
+<script src="https://cdn2.qnzsvk.cn/live/Home/js/jquery.min.js"></script>
+<script src="https://cdn2.qnzsvk.cn/live/Home/js/video-script.js"></script>
+<!-- 微信 -->
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script>
+  /* 聊天记录 */
+  function readMess() {
+    $.ajax({
+      type: "POST",
+      url: "{:U('Index/sendinfo')}",
+      dataType: 'json',
+      data: {
+        liveid: lived
+      },
+      success: function (data) {
+        //console.log(data)
+        //console.log(data.info);
+        if (data.status == 1) {
+          for (var i = 0; i < data.info.length; i++) {
+            var creattime = data.info[i].creattime;
+            var content = data.info[i].content;
+            var header = data.info[i].header;
+            var clientname = data.info[i].clientname;
+            var img = data.info[i].img;
+            var giftname = data.info[i].giftname;
+            var type = data.info[i].type;
+            //console.log(data.info)
+            if (type == 1) {
+              $('.comment-bullet').append(
+                '<div class="bullet-list-container">' +
+                '<div class="bullet-list">' +
+                '<div class="bullet-list-item">' +
+                '<div class="left-side">' +
+                '<div class="avatar">' +
+                '<img alt="" class="circle" src="' + header + '">' +
+                '</div>' +
+                '</div>' +
+                '<div class="right-side">' +
+                '<div class="nickname">' + clientname + '</div>' +
+                '<div class="content">' + content + '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>');
+              $('.discuss-comm-list').append(
+                '<div class="discuss-item">' +
+                '<div class="weui-flex">' +
+                '<div class="weui-flex__item flex_5  dis-msg">' +
+                '<div class="text pop-content align-center">' +
+                '<p class="text-ellipsis-newline">' + content + '</p>' +
+                '</div>' +
+                '</div>' +
+                '<div class="weui-flex__item flex_1">' +
+                '<div class="avatar">' +
+                '<img class="circle" alt="" src="' + header + '">' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>'
+              );
+
+            } else if (type == 2) {
+              $('.dial-chat').append(
+                ' <div class="send">' +
+                '<span class="userName">战三送出了礼物' + giftname + '</span>' +
+                '<img src="' + img + '" alt="">' +
+                '</div>'
+              );
+            }
+
+          }
+        }
+      }
+    }).promise().done(function () {
+      var disArr = $('.discuss-item');
+      disArrLen = disArr.length;
+      var windowHight = $(window).height();
+      if (windowHight < 520) {
+        if (disArr.length > 3) {
+          for (var i = 0; i < disArrLen - 3; i++) {
+            disArr[i].remove();
+          }
+        }
+      } else {
+        if (disArr.length > 5) {
+          for (var i = 0; i < disArrLen - 5; i++) {
+            disArr[i].remove();
+          }
+        }
+      }
+    });
+
+    //语音信息
+    $.ajax({
+      type: "POST",
+      url: "{:U('Index/weixinfo')}",
+      dataType: 'json',
+      data: {
+        liveid: lived
+      },
+      success: function (data) {
+        console.log('初始ajax');
+        console.log(data);
+        console.log(data.length);
+        if (data.length > 0) {
+          for (var i = 0; i < data.length; i++) {
+            console.log(typeof data[i].typename);
+            if (data[i].typename === '2') {
+              $('.dial-chat').append(
+                '<div class="timeDate">' +
+                '<span>' + data[i].creattime + '</span>' +
+                ' <span class="lastTime" style="display: none"></span>' +
+                '</div>' +
+                '<div class="item">' +
+                '<img src="https://cdn2.qnzsvk.cn/live/Home/images/video.jpg" alt="" class="header">' +
+                '<div class="info">' +
+                '<span class="name">' + name + '</span>' +
+                '<div class="chat-item">' +
+                '<div class="chat-item-conten" id="' + data[i].weixinserverid + '" style="width:' + (parseInt(data[i].luyintime) + 10) + '%">' +
+                '<img src="https://cdn2.qnzsvk.cn/live/Home/images/voice_static@3x.png" alt="" class="audio_play">' +
+                '<span class="redBtn"></span>' +
+                '<span class="audioTime">' + data[i].luyintime + '&quot;</span>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>'
+              );
+            } else if (data[i].typename === '1') {
+              $('.dial-chat').append(
+                '<div class="timeDate">' +
+                '<span> ' + data[i].creattime + '</span>' +
+                '<span class="lastTime" style="display: none">' + name + '</span>' +
+                '</div>' +
+                '<div class="item">' +
+                '<img src="https://cdn2.qnzsvk.cn/live/Home/images/video.jpg" alt="" class="header">' +
+                '<div class="img-info">' +
+                '<span>张三</span>' +
+                '<img src=' + data[i].voiceaddress + ' alt="" class="img">' +
+                '</div>' +
+                '</div>'
+              );
+            }
+          }
+        }
+      }
+    }).promise().done(function () {
+      //播放语音
+      playVodio();
+      clickImgBig();
+    });
+  }
+
+  // 直播间号，用户头像，用户名，支付是否成功
+  var liveId;
+  var header;
+  var name;
+  var ok;
+  var techer;
+  var imgSrc;
+  var giftName;
+  var status = "{$live.status}";
+  //  var imgAudio = {$infovoce}();
+  //  console.log(imgAudio)
+  //console.log(status);
+  var urls = location.href.split('#')[0];
+  //var urls = encodeURIComponent(urls) ;
+
+  //console.log(urls);
+
+  $.ajax({
+    url: "{:U('Index/livedeil')}",
+    type: 'post',
+    dataType: 'json',
+    async: false,
+    data: {
+      data: urls
+    },
+    success: function (data) {
+      config = data;
+
+    }
+  });
+  $(function () {
+    stickTopBottom();
+    // 分享朋友圈
+    shareFriend();
+    // 轮播图
+    slideShow();
+    // 课程和互动切换
+    cutPage();
+    // 焦点切换
+    inpuCut();
+    // 上传图片
+    upPictur();
+    // 语音输入框切换
+    voiceChat();
+    // 语音
+    VoiceChatFun();
+    // 送礼物
+    giftPage();
+    // 获取变量
+    liveId = "qnzsvk" + $('#liveId').val();
+    lived = $('#liveId').val();
+    header = $('#header').val();
+    name = $('#name').val();
+    ok = $('#ok').val();
+    techer = $('#liveteacher').val();
+    // 聊天记录
+    readMess();
+    // 关闭按钮
+    close_fn();
+    // 弹幕
+    bulletShow();
+    OnEnter();
+    OnJoin();
+  });
+
+  /* 获取当前时间 */
+  function newDate() {
+    var date = new Date(),
+      year = date.getFullYear(),
+      month = date.getMonth() + 1,
+      day = date.getDate(),
+      hours = date.getHours(),
+      min = date.getMinutes();
+    seconds = date.getSeconds();
+    return `${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day} ${hours < 10 ? '0' + hours : hours}:${min < 10 ? '0' + min : min }:${seconds < 10 ? '0' + seconds : seconds }`
+  }
+
+  function close_fn() {
+    $('.aside-close').click(function () {
+      $('aside').remove();
+      $('main').css({
+        height: 'calc(100% - 50px)'
+      })
+    });
+    $('.couse-know-box .title span').click(function () {
+      $('.couse-know-box').remove();
+    })
+  }
+
+  // 焦点获取切换
+  function inpuCut() {
+    //获取焦点
+    $('.txt-wrap input').on('focus', function () {
+      //console.log($('.swiper-container').height() / 2);
+      $(window).scrollTop($('.swiper-container').height() / 2);
+      $('.other').html('<button type="button" class="send-message">发送</button>');
+      // 发送消息
+      sendMess();
+    });
+    $('.txt-wrap input').on('blur', function () {
+      setTimeout(function () {
+        $('.other').html(' <img src="https://cdn2.qnzsvk.cn/live/Home/images/live_addphoto_btn@2x.png" alt="" class="upPic">');
+      }, 0)
+    });
+  }
+
+  //微信配置
+  function weixin() {
+    wx.config({
+      //debug: true,
+      appId: config.appId, // 必填，公众号的唯一标识
+      timestamp: config.timestamp, // 必填，生成签名的时间戳
+      nonceStr: config.nonceStr, // 必填，生成签名的随机串
+      signature: config.signature, // 必填，签名，见附录1 ba939f772c41cadd1175bcedb4f9ec6627578484
+      jsApiList: [
+        'checkJsApi',
+        'startRecord',
+        'stopRecord',
+        'onVoiceRecordEnd',
+        'playVoice',
+        'pauseVoice',
+        'stopVoice',
+        'onVoicePlayEnd',
+        'uploadVoice',
+        'downloadVoice',
+        'chooseImage',
+        'previewImage',
+        'uploadImage',
+        'downloadImage',
+        'onMenuShareTimeline',
+        'onMenuShareAppMessage',
+        'onMenuShareQQ',
+        'onMenuShareWeibo',
+        'onMenuShareQZone'
+      ]
+    });
+  }
+
+  //分享朋友圈
+  function shareFriend() {
+    weixin();
+    var link = window.location.href;
+    wx.ready(function () {
+      wx.onMenuShareTimeline({
+        title: '{$live.title}', // 分享标题
+        link: link, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+        imgUrl: 'https://cdn2.qnzsvk.cn/live/Home/images/share_logo.png', // 分享图标
+        success: function () {
+          // 用户确认分享后执行的回调函数
+
+        },
+        cancel: function () {
+          // 用户取消分享后执行的回调函数
+        }
+      });
+      wx.onMenuShareAppMessage({
+        title: '{$live.title}', // 分享标题
+        desc: '{$live.title}', // 分享描述
+        link: link, // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+        imgUrl: 'https://cdn2.qnzsvk.cn/live/Home/images/share_logo.png',  // 分享图标
+        type: '', // 分享类型,music、video或link，不填默认为link
+        dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+        success: function () {
+          // 用户确认分享后执行的回调函数
+
+        },
+        cancel: function () {
+          // 用户取消分享后执行的回调函数
+        }
+      });
+      wx.onMenuShareQQ({
+        title: '{$live.title}', // 分享标题
+        desc: '{$live.title}', // 分享描述
+        link: link, // 分享链接
+        imgUrl: 'https://cdn2.qnzsvk.cn/live/Home/images/share_logo.png',  // 分享图标
+        success: function () {
+          // 用户确认分享后执行的回调函数
+
+        },
+        cancel: function () {
+          // 用户取消分享后执行的回调函数
+        }
+      });
+      wx.onMenuShareWeibo({
+        title: '{$live.title}', // 分享标题
+        desc: '{$live.title}', // 分享描述
+        link: link, // 分享链接
+        imgUrl: 'https://cdn2.qnzsvk.cn/live/Home/images/share_logo.png',  // 分享图标
+        success: function () {
+          // 用户确认分享后执行的回调函数
+
+        },
+        cancel: function () {
+          // 用户取消分享后执行的回调函数
+        }
+      });
+      wx.onMenuShareQZone({
+        title: '{$live.title}', // 分享标题
+        desc: '{$live.title}', // 分享描述
+        link: link, // 分享链接
+        imgUrl: 'https://cdn2.qnzsvk.cn/live/Home/images/share_logo.png',  // 分享图标
+        success: function () {
+          // 用户确认分享后执行的回调函数
+
+        },
+        cancel: function () {
+          // 用户取消分享后执行的回调函数
+        }
+      });
+    })
+
+  }
+
+
+  // 上传图片
+  function upPictur() {
+    weixin();
+    $('.upPic').on('click', function () {
+      console.log("打发第三方")
+      wx.chooseImage({
+        count: 1, // 默认9
+        sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+        sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+        success: function (res) {
+          //var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+          setTimeout(function () {
+            wx.uploadImage({
+              localId: res.localIds.toString(), // 需要上传的图片的本地ID，由chooseImage接口获得
+              isShowProgressTips: 1, // 默认为1，显示进度提示
+              success: function (res) {
+                console.log(res.serverId);
+                $.ajax({
+                  url: "{:U('Index/wxyuyin')}",
+                  type: 'post',
+                  data: {
+                    liveid: lived,
+                    serverid: res.serverId,
+                    typename: 1,
+                  },
+                  dataType: 'json',
+                  success: function (data) {
+                    console.log(data);
+                    var chatmsg = {
+                      head: header,
+                      imgId: data.voiceaddress,
+                      name: name,
+                      reward: true,
+                      type: 2,
+                    };
+                    ROP.Publish(JSON.stringify(chatmsg), liveId);
+                    clickImgBig();
+                  },
+                  error: function (err) {
+                    console.log(err);
+                  }
+                })
+              }
+            });
+          }, 100);
+        }
+      });
+    });
+  }
+
+  //点击放大图片
+  function clickImgBig() {
+    weixin();
+    console.log("这是图片")
+    $('.img-info .img').on('click', function () {
+      var imgArr = [];
+      var imgSrc = $(this).attr('src');
+      console.log($(this).attr('src'));
+      $.ajax({
+        url: "{:U('Index/weixinimage')}",
+        type: 'post',
+        data: {
+          liveid: lived,
+          typename: 1,
+        },
+        dataType: 'json',
+        success: function (data) {
+          wx.previewImage({
+            current: imgSrc,  // 当前显示图片的http链接
+            urls: data
+          });
+        },
+        error: function (err) {
+          console.log(err);
+        }
+      });
+    })
+
+  }
+
+  //微信语音配置
+  function VoiceChatFun() {
+    var START, END, luyintime;
+    weixin();
+    //开始说话
+    $('.txt-speak').off('touchstart').on('touchstart', function (event) {
+      console.log("touchstart开始说话");
+      START = Math.round(new Date().getTime() / 1000);
+      //语音标签初始化
+      audioInit();
+      wx.startRecord({
+        success: function () {
+          //console.log("开始时间"+START);
+          wx.onVoiceRecordEnd({
+            // 录音时间超过一分钟没有停止的时候会执行 complete 回调
+            complete: function (res) {
+              alert('最多只能录制一分钟');
+              setTimeout(function () {
+                wx.uploadVoice({
+                  localId: res.localId, // 需要上传的音频的本地ID，由stopRecord接口获得
+                  isShowProgressTips: 0, // 默认为1，显示进度提示
+                  success: function (res) {
+                    var chatmsg = {
+                      head: header,
+                      serverSrc: res.serverId,
+                      name: name,
+                      reward: true,
+                      type: 1,
+                      time: 60
+                    };
+                    ROP.Publish(JSON.stringify(chatmsg), liveId);
+                    //上传语音
+                    $.ajax({
+                      url: "{:U('Index/wxyuyin')}",
+                      type: 'post',
+                      data: {
+                        liveid: lived,
+                        serverid: res.serverId,
+                        typename: 2,
+                        luyintime: 60
+                      },
+                      dataType: 'json',
+                      success: function (data) {
+                        console.log('这是返回的数据');
+                        console.log(data);
+                      },
+                      error: function (err) {
+                        console.log(err);
+                      }
+                    });
+                  }
+                });
+              }, 100);
+            }
+          });
+        },
+        cancel: function () {
+          alert('用户拒绝授权录音');
+          return false;
+        }
+      });
+    });
+
+    //手指抬起
+    $('.txt-speak').off('touchend').on('touchend', function (event) {
+      END = Math.round(new Date().getTime() / 1000);
+      console.log(START);
+      console.log(END);
+      //录音时间
+      luyintime = END - START;
+      console.log("时间差" + luyintime);
+      if (luyintime < 2) {
+        END = 0;
+        START = 0;
+        wx.stopRecord({});
+        alert('录音时间不能少于2秒');
+        return false;
+        //小于300ms，不录音
+      } else {
+        wx.stopRecord({
+          success: function (res) {
+            setTimeout(function () {
+              wx.uploadVoice({
+                localId: res.localId, // 需要上传的音频的本地ID，由stopRecord接口获得
+                isShowProgressTips: 0, // 默认为1，显示进度提示
+                success: function (res) {
+                  $.ajax({
+                    url: "{:U('Index/wxyuyin')}",
+                    type: 'post',
+                    data: {
+                      liveid: lived,
+                      serverid: res.serverId,
+                      typename: 2,
+                      luyintime: luyintime
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                      console.log('这是返回的数据');
+                      console.log(data);
+                    },
+                    error: function (err) {
+                      console.log(err);
+                    }
+                  });
+                  var chatmsg = {
+                    head: header,
+                    serverSrc: res.serverId,
+                    name: name,
+                    reward: true,
+                    type: 1,
+                    time: luyintime
+                  };
+                  ROP.Publish(JSON.stringify(chatmsg), liveId);
+                }
+              });
+            }, 100);
+          }
+        });
+      }
+    });
+    //播放语音
+    playVodio();
+  }
+
+  //播放开关
+  var playAudioOn = true;
+
+  //播放语音
+  function playVodio() {
+    weixin();
+    //聊天记录warpper
+    var _dialChat = document.getElementsByClassName('dial-chat')[0];
+    //语音元素
+    var _chatItemConten = _dialChat.getElementsByClassName('chat-item-conten');
+    var _chatItemContenLen = _chatItemConten.length;
+    for (var i = 0; i < _chatItemContenLen; i++) {
+      _chatItemConten[i].index = i;
+      _chatItemConten[i].addEventListener('touchstart', function () {
+        var _serverId = _chatItemConten[this.index].getAttribute('id');
+        var _thisId = '#' + _serverId;
+        //存入sessionStorage
+        sessionStorage.setItem('lastPlayServerId', _serverId);
+        wx.downloadVoice({
+          serverId: _serverId, // 需要下载的音频的服务器端ID，由uploadVoice接口获得
+          isShowProgressTips: 0, // 默认为1，显示进度提示
+          success: function (res) {
+            sessionStorage.setItem('lastPlayLocalId', res.localId);
+          }
+        });
+        var lastPlayLocalId = sessionStorage.getItem('lastPlayLocalId');
+        wx.stopVoice({
+          localId: lastPlayLocalId
+        });
+
+        //下载语音
+        if (playAudioOn) {
+          //播放语音
+          setTimeout(function () {
+            wx.playVoice({
+              localId: lastPlayLocalId
+            });
+          },0);
+          playAudioOn = false;
+        } else {
+          if (_serverId !== sessionStorage.getItem('lastPlayServerId')) {
+            wx.playVoice({
+              localId: lastPlayLocalId
+            });
+          } else {
+             wx.stopVoice({
+              localId: lastPlayLocalId
+            });
+          }
+          playAudioOn = true;
+        }
+      });
+    }
+  }
+
+  /*    //播放语音
+      $('.dial-chat .chat-item-conten').off('click').on('click', function () {
+        //标签上的id
+        var thisId = '#' + $(this).attr('id');
+        var click_this = $(thisId);
+        var that = $(this).attr('id');
+        //存入lastPlayServerId
+        setTimeout(function () {
+          sessionStorage.lastPlayServerId = that;
+        }, 100);
+        //储存localId到sessionStorage
+        wx.downloadVoice({
+          serverId: that, // 需要下载的音频的服务器端ID，由uploadVoice接口获得
+          isShowProgressTips: 0, // 默认为1，显示进度提示
+          success: function (res) {
+            sessionStorage.lastPlayLocalId = res.localId;
+          }
+        });
+        //语音初始化
+        audioInit();
+        //去除小圆点
+        click_this.find('.redBtn').remove();
+        //播放语音
+        if (playAudioOn) {
+          console.log('点击播放语音');
+          clickPlayVoice(click_this);
+          playAudioOn = false;
+          //语音停止
+        } else if (!playAudioOn) {
+          //如果两个的serverId不一样就继续播放
+          console.log(sessionStorage.lastPlayServerId);
+          console.log(that);
+          if (that !== sessionStorage.lastPlayServerId) {
+            console.log('点击停止的不是同一个');
+            clickPlayVoice(click_this);
+          } else {
+            stopVoice(click_this);
+            console.log('点击停止的是同一个');
+          }
+          playAudioOn = true;
+        }
+
+          //播放完毕
+          wx.onVoicePlayEnd({
+            success: function (res) {
+              click_this.find('.audio_play').attr('src', 'https://cdn2.qnzsvk.cn/live/Home/images/voice_static@3x.png');
+              click_this.css({
+                backgroundColor: '#fff'
+              });
+              audioAutoPlay();
+              playAudioOn = true;
+              console.log('播放完毕');
+              console.log(playAudioOn);
+            }
+          });
+      });*/
+
+
+
+  /* //语音初始化
+  function audioInit() {
+    weixin();
+    $('.audio_play').attr('src', 'https://cdn2.qnzsvk.cn/live/Home/images/voice_static@3x.png');
+    $('.chat-item-conten').css({
+      backgroundColor: '#fff'
+    });
+    wx.stopVoice({
+      localId: sessionStorage.lastPlayLocalId
+    });
+  }
+
+ //点击播放语音
+  function clickPlayVoice(click_this) {
+    weixin();
+    click_this.find('.audio_play').attr('src', 'https://cdn2.qnzsvk.cn/live/Home/images/pause_btn@3x.png');
+    click_this.css({
+      backgroundColor: '#ddd'
+    });
+    setTimeout(function () {
+      wx.playVoice({
+        localId: sessionStorage.lastPlayLocalId
+      });
+    }, 200);
+  }
+
+  //暂停播放
+  function stopVoice(click_this) {
+    weixin();
+    wx.stopVoice({
+      localId: sessionStorage.lastPlayLocalId
+    });
+    click_this.find('.audio_play').attr('src', 'https://cdn2.qnzsvk.cn/live/Home/images/voice_static@3x.png');
+    click_this.css({
+      backgroundColor: '#fff'
+    });
+  }*/
+
+
+
+
+
+
+
+
+
+  // 轮播图
+  function slideShow() {
+    var mySwiper = new Swiper('.swiper-container', {
+      autoplay: 5000,
+      pagination: '.swiper-pagination'
+    })
+  }
+
+  /* 切换按钮：课程和互动 */
+  function cutPage() {
+    var chat = true;
+    $('.switch-nav div').click(function () {
+      $(this).addClass("switch-nav-active");
+      $(this).siblings().removeClass("switch-nav-active");
+      if ($(this).hasClass('chating')) {
+        if (chat) {
+        } else {
+          $('.main-content').html(
+            '<div class="dialogue">' +
+            '<div class="dial-content">' +
+            '<div class="couse-know-box">' +
+            '<div class="title">听课须知<span>×</span></div>' +
+            '<div class="content">1. 听不到声音请往下翻点击语音即可播放，并确认手机没有静音，若不行可切换网络或重新进入<br> 2. 遇到卡顿和加载不出，可刷新本页或重新进入<br> 3. 大家可在下方评论区提问和交流 <br>4. 课程语音永久保留，无限复听</div>' +
+            '</div>' +
+            '<div class="dial-chat"></div>' +
+            '</div>' +
+            '</div>' +
+            '<div class="classroom-discuss-area">' +
+            '<div class="discuss-list">' +
+            '<div class="discuss-comm-list"></div>' +
+            '<div class="buttons">' +
+            '<div class="discuss" style="bottom:0">弹</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '<div class="bullet-panel">' +
+            '<div class="weui-mask" style="bottom:50px"></div>' +
+            '<div class="reward-rank-panel">' +
+            '<div class="header">' +
+            '<div class="navbar">' +
+            '<div class="nav-item active">最新评论</div>' +
+            '<div class="nav-item">赞赏排行</div>' +
+            '</div>' +
+            '<span class="close">×</span>' +
+            '</div>' +
+            '<div class="body">' +
+            '<div class="comment-bullet"></div>' +
+            '<div class="ranking-bullet"></div>' +
+            '</div>' +
+            '</div>' +
+            '</div>'
+          );
+          // 用户和主持人判读：1为用户，0为主持人
+          var user = 0;
+          if (user === 1) {
+            $('main').after(
+              '<footer>' +
+              '<div class="com_form">' +
+              '<div class="gift_menu_btn"> 礼物 </div>' +
+              '<div class="txt-wrap">' +
+              '<input type="text" placeholder="说点什么吧..." maxlength="30">' +
+              '</div>' +
+              '<button type="button" class="send-message">发送</button>' +
+              '</div>' +
+              '</footer>'
+            )
+          } else if (user === 0) {
+            $('main').after(
+              '<footer>' +
+              '<div class="com_form">' +
+              '<div class=" com-btn voice_btn ">' +
+              '<img src="https://cdn2.qnzsvk.cn/live/Home/images/voice_btn.png" alt="">' +
+              '</div>' +
+              '<div class="txt-wrap">' +
+              ' <input type="text" placeholder="说点什么吧..." maxlength="30">' +
+              '</div>' +
+              '<div class="other">' +
+              '<img src="https://cdn2.qnzsvk.cn/live/Home/images/live_addphoto_btn@2x.png" alt="" class="upPic">' +
+              '</div>' +
+              '</div>' +
+              '</footer>'
+            );
+            inpuCut()
+
+          }
+
+
+          // 奥点云聊天配置
+          OnEnter();
+          OnJoin();
+          $('.introduce').remove();
+          // 礼物面板
+          giftPage();
+          // 发送消息
+          sendMess();
+          chat = true;
+          bulletShow();
+          readMess();
+        }
+
+      } else if ($(this).hasClass('course-details')) {
+        $('footer').remove();
+        $('.classroom-discuss-area').remove();
+        $('.dialogue').remove();
+        $('.main-content').html(
+          ' <div class="introduce">' +
+          ' <p class="title">{$live.kcjs}</p>' +
+          '  <section class="tab-list-info">' +
+          '  <div class="tab-list-box">' +
+          '  <div class="tab-list-line-box">' +
+          '<div class="header-info">' +
+          '<div class="info">' +
+          '<img src="{$sperk.touxiang}" alt="">' +
+          '</div>' +
+          '<p class="info-tecName">{$sperk.teachername}</p>' +
+          '<p class="info-schName">{$sperk.introduce}</p>' +
+          '<p class="info-worName">{$sperk.school}</p>' +
+          '</div>' +
+          '<div class="describe">' +
+          '<p>{$sperk.jianjie}</p>' +
+          '</div>' +
+          '</div>' +
+          '</div>' +
+          '</section>' +
+          '<section class="tab-course-info">' +
+          '<p class="title">视频介绍</p>' +
+          ' <div class="tec-describe">' +
+          '<p><if condition="$live.remark neq null ">{$live.remark|htmlspecialchars_decode}<else />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;暂无介绍哦</if></p>' +
+          '</div>' +
+          '</section>' +
+          '</div>'
+        );
+        chat = false;
+      }
+    });
+
+  }
+
+  /*************
+   ****** 2017.06.27
+   ****** 语音输入框切换
+   ****************************/
+  function voiceChat() {
+    var num = true;
+    $('.com_form ').on('click', '.com-btn', function () {
+      if (num) {
+        $('.com_form').html(
+          '<div class="com-btn text_btn ">' +
+          '<img src="https://cdn2.qnzsvk.cn/live/Home/images/text_btn.png" alt="">' +
+          '</div>' +
+          '<p class="txt-speak" style="-webkit-user-select:none;">按住&nbsp;说话</p>' +
+          '<div class="other">' +
+          '<button type="button" class="end-speak">结束</button>' +
+          '</div>'
+        );
+        VoiceChatFun();
+      } else {
+        $('.com_form').html(
+          '<div class="com-btn voice_btn ">' +
+          '<img src="https://cdn2.qnzsvk.cn/live/Home/images/voice_btn.png" alt="">' +
+          '</div>' +
+          '<div class="txt-wrap">' +
+          '  <input type="text" placeholder="说点什么吧..." maxlength="30">' +
+          '</div>' +
+          '<div class="other">' +
+          ' <img src="https://cdn2.qnzsvk.cn/live/Home/images/live_addphoto_btn@2x.png" alt="" class="upPic">' +
+          '</div>'
+        );
+        inpuCut();
+      }
+      num = !num;
+    });
+
+  }
+
+  /* 发送聊天按钮 */
+  function sendMess() {
+    $('footer .send-message').on('click', function () {
+      console.log(1)
+      // 获取输入框的值
+      var inputVal = $('footer input').val();
+      // 输入框为空判定
+      if (inputVal != "") {
+        var chatmsg = {
+          head: header,
+          msg: inputVal,
+          name: name,
+          reward: true,
+          type: 0
+        }
+        // 添加
+        ROP.Publish(JSON.stringify(chatmsg), liveId);
+        $.ajax({
+          type: "POST",
+          url: "{:U('Index/adddata')}", // url: "{:U('Index/sendinfo')}",
+          dataType: 'json',
+          data: {
+            chatmsg: chatmsg,
+            liveid: lived,
+            type: 1
+          },
+        });
+        // 清空输入框
+        $('footer input').val("");
+      } else {
+      }
+    });
+  }
+
+
+  /* 送礼物 */
+  function giftPage() {
+    var onOff = true;
+    $('.gift_menu_btn').click(function () {
+      $('.gift-page').slideToggle();
+      $('.dia-mask').toggle();
+      giftSend();
+      if ($('body')[0].style.overflow != 'hidden') {
+        $('body').css({
+          overflowY: "hidden"
+        });
+      } else {
+        $('body').css({
+          overflow: "auto"
+        });
+      }
+    });
+    $('main').click(function () {
+      $('.gift-page').slideUp();
+      $('.dia-mask').hide();
+      $('body').css({
+        overflow: "auto"
+      });
+    });
+  }
+
+  /* 发送礼物 */
+  function giftSend() {
+    // 点击礼物发送礼物
+    $('.gift-list li').off('click').click(function () {
+      var giftMoney = $(this).find('.giftMoney').text(),
+        giftMoneyVal = giftMoney.slice(1);
+      var zid = 1;
+      var liveid = '{$live.id}';
+      if (giftMoneyVal > 0) {
+        $.ajax({
+          type: "POST",
+          url: "{:U('Index/addashang')}",
+          dataType: 'json',
+          data: {
+            jine: giftMoneyVal,
+            liveid: liveid
+          },
+          success: function (data) {
+            if (data.status == 1) {
+              window.location.href = "http://live.yuanduansoft.com/newlive2/wxpay/index.php?id=" + data.id + "&price=" + giftMoneyVal + "&zid=" + zid;
+            } else if (data.status == 2) {
+              alert('失败');
+              //window.location.href = "http://www1.qnzsvk.cn/wxpay/index.php?id=" + a + "&price=" + b;
+            } else {
+              alert('数据异常');
+            }
+          }
+
+        });
+      } else {
+        alert('请输入您要赞赏金额')
+      }
+      // 赋值
+      var imgSrc = $(this).find('img').attr('src');
+      var giftName = $(this).find('.giftName').text();
+      imgSrc = imgSrc;
+      giftName = giftName;
+      //rewardmsg(name,imgSrc,giftName);
+      var chatmsg = {
+        head: "",
+        msg: "",
+        name: name,
+        reward: false,
+        giftName: giftName,
+        imgSrc: imgSrc
+      }
+      ROP.Publish(JSON.stringify(chatmsg), liveId);
+      $.ajax({
+        type: "POST",
+        url: "{:U('Index/adddata')}",
+        dataType: 'json',
+        data: {
+          chatmsg: chatmsg,
+          liveid: lived,
+          type: 2
+        },
+      });
+      // 关闭面板
+      $('.gift-page').slideUp();
+      $('.dia-mask').hide();
+      $('body').css({
+        overflow: "hidden",
+        overflowY: "auto"
+      });
+    });
+  }
+
+  // 赞赏数据获取
+  function rewardmsg(name, imgSrc, giftName) {
+    var chatmsg = {
+      head: "",
+      msg: "",
+      name: name,
+      reward: false,
+      giftName: giftName,
+      imgSrc: imgSrc
+    }
+    ROP.Publish(JSON.stringify(chatmsg), liveId);
+    //pushReward(name,giftName,imgSrc);
+  }
+
+  function ShowMsg(msg) {
+
+  }
+
+  ROP.On("enter_suc",
+    function () {
+      ShowMsg("EnterSuc");
+    })
+  //重连中
+  ROP.On("reconnect",
+    function () {
+      ShowMsg("reconnect:");
+    })
+  //离线状态，之后会重连
+  ROP.On("offline",
+    function (err) {
+      ShowMsg("offline:" + err);
+    })
+  //登陆失败
+  ROP.On("enter_fail",
+    function (err) {
+      ShowMsg("EnterFail:" + err);
+    })
+  //收到消息
+  ROP.On("publish_data",
+    function (data, topic) {
+      var msg = JSON.parse(data);
+      console.log(msg.type);
+      if (typeof msg.reward == 'string') {
+        if (msg.reward == 'true') {
+          if (msg.type === 1 && msg.time) {
+            console.log("这是语音")
+            pushAudio(msg.name, msg.head, msg.serverSrc, msg.time);
+          } else if (msg.type === 0) {
+            console.log("这是文字消息")
+            var disArr = $('.discuss-item');
+            var windowHight = $(window).height();
+            console.log("这是窗口高度" + windowHight)
+            if (disArr.length < 3) {
+              pushMess(msg.head, msg.name, msg.msg);
+            } else {
+              disArr[0].remove();
+              pushMess(msg.head, msg.name, msg.msg);
+            }
+            if (disArr.length < 5) {
+              pushMess(msg.head, msg.name, msg.msg);
+            } else {
+              disArr[0].remove();
+              pushMess(msg.head, msg.name, msg.msg);
+            }
+          } else if (msg.type === 2) {
+            pushImg(msg.head, msg.name, msg.imgId);
+          }
+        } else {
+          pushReward(msg.name, msg.giftName, msg.imgSrc);
+        }
+      } else if (typeof msg.reward == 'boolean') {
+        if (msg.reward) {
+          if (msg.type === 1 && msg.time) {
+            console.log("这是语音")
+            pushAudio(msg.name, msg.head, msg.serverSrc, msg.time);
+          } else if (msg.type === 0) {
+            console.log("这是文字消息")
+            var disArr = $('.discuss-item');
+            if (disArr.length < 3) {
+              pushMess(msg.head, msg.name, msg.msg);
+            } else {
+              disArr[0].remove();
+              pushMess(msg.head, msg.name, msg.msg);
+            }
+            if (disArr.length < 5) {
+              pushMess(msg.head, msg.name, msg.msg);
+            } else {
+              disArr[0].remove();
+              pushMess(msg.head, msg.name, msg.msg);
+            }
+          } else if (msg.type === 2) {
+            pushImg(msg.head, msg.name, msg.imgId);
+          }
+        } else {
+          pushReward(msg.name, msg.giftName, msg.imgSrc);
+        }
+      }
+    });
+  //彻底断线了
+  ROP.On("losed",
+    function () {
+      ShowMsg("Losed");
+    })
+
+  /*聊天*/
+  function OnEnter() {
+    ROP.Enter("pub_fa4183e83c3156689ed6a2cab737f761", "sub_ecb72707f5a53095cf193db214fc1d03");
+  }
+
+  function OnJoin() {
+    ROP.Subscribe(liveId);
+  }
+
+  // 发送消息添加内容
+  function pushMess(head, name, msg) {
+    $('.comment-bullet').prepend(
+      '<div class="bullet-list-container">' +
+      '<div class="bullet-list">' +
+      '<div class="bullet-list-item">' +
+      '<div class="left-side">' +
+      '<div class="avatar">' +
+      '<img alt="" class="circle" src="' + header + '">' +
+      '</div>' +
+      '</div>' +
+      '<div class="right-side">' +
+      '<div class="nickname">' + name + '</div>' +
+      '<div class="content">' + msg + '</div>' +
+      '</div>' +
+      '</div>' +
+      '</div>' +
+      '</div>');
+    $('.discuss-comm-list').append(
+      '<div class="discuss-item">' +
+      '<div class="weui-flex">' +
+      '<div class="weui-flex__item flex_5  dis-msg">' +
+      '<div class="text pop-content align-center">' +
+      '<p class="text-ellipsis-newline">' + msg + '</p>' +
+      '</div>' +
+      '</div>' +
+      '<div class="weui-flex__item flex_1">' +
+      '<div class="avatar">' +
+      '<img class="circle" alt="" src="' + header + '">' +
+      '</div>' +
+      '</div>' +
+      '</div>' +
+      '</div>'
+    )
+    sendLimitNum();
+  }
+
+  // 推送赞内容
+  function pushReward(name, giftName, imgSrc) {
+    $('.dial-chat').append(
+      ' <div class="send">' +
+      '<span class="userName">' + name + '送出了' + giftName + '</span>' +
+      ' <img src=' + imgSrc + ' alt="">' +
+      '</div>'
+    );
+  }
+
+  // 推送图片
+  function pushImg(head, name, imgId) {
+    $('.dial-chat').append(
+      '<div class="timeDate">' +
+      '<span>' + newDate() + '</span>' +
+      '<span class="lastTime" style="display: none">张三</span>' +
+      '</div>' +
+      '<div class="item">' +
+      '<img src="https://cdn2.qnzsvk.cn/live/Home/images/video.jpg" alt="" class="header">' +
+      '<div class="img-info">' +
+      '<span>张三</span>' +
+      '<img src=' + imgId + ' alt="" class="img">' +
+      '</div>' +
+      '</div>'
+    );
+    fotBot();
+
+  }
+
+  // 发送语音
+  function pushAudio(name, header, serverSrc, time) {
+    autoPlayTime = time;
+    $('.dial-chat').append(
+      '<div class="timeDate">' +
+      '<span>' + newDate() + '</span>' +
+      ' <span class="lastTime" style="display: none"></span>' +
+      '</div>' +
+      '<div class="item">' +
+      '<img src="https://cdn2.qnzsvk.cn/live/Home/images/video.jpg" alt="" class="header">' +
+      '<div class="info">' +
+      '<span class="name">' + name + '</span>' +
+      '<div class="chat-item">' +
+      '<div class="chat-item-conten" id="' + serverSrc + '" style="width:' + time + '%">' +
+      '<img src="https://cdn2.qnzsvk.cn/live/Home/images/voice_static@3x.png" alt="" class="audio_play">' +
+      '<span class="redBtn"></span>' +
+      '<span class="audioTime">' + time + '&quot;</span>' +
+      '<audio style="display: none;" preload src=""></audio>' +
+      '</div>' +
+      '</div>' +
+      '</div>' +
+      '</div>'
+    );
+    VoiceChatFun();
+    fotBot();
+  }
+
+
+  /*滚动条在最底部 */
+  function fotBot() {
+    $('.dial-content').scrollTop($('.dial-content')[0].scrollHeight);
+    $(window).scrollTop($(document).height());
+  }
+
+  /* 点击弹幕 */
+  function bulletShow() {
+    var onOff = true;
+    $('.classroom-discuss-area').on('click', '.discuss-list', function () {
+      $('.bullet-panel').slideToggle();
+    });
+    $('.bullet-panel').on('click', '.weui-mask', function () {
+      $('.bullet-panel').slideToggle();
+    });
+    $('.navbar .nav-item').click(function () {
+      $(this).siblings().removeClass('active');
+      $(this).addClass('active');
+      $(this).children('div').addClass('sec-active').parent().siblings().children('div').removeClass('sec-active');
+      if (!onOff) {
+        $('.body').html('<div class="comment-bullet"></div>');
+        $.ajax({
+          type: "POST",
+          url: "{:U('Index/sendinfo')}",
+          dataType: 'json',
+          data: {
+            liveid: lived
+          },
+          success: function (data) {
+            //console.log(data.info);
+            if (data.status == 1) {
+              for (var i = 0; i < data.info.length; i++) {
+                var creattime = data.info[i].creattime;
+                var content = data.info[i].content;
+                var header = data.info[i].header;
+                var clientname = data.info[i].clientname;
+                var img = data.info[i].img;
+                var giftname = data.info[i].giftname;
+                var type = data.info[i].type;
+
+                $('.comment-bullet').append(
+                  '<div class="bullet-list-container">' +
+                  '<div class="bullet-list">' +
+                  '<div class="bullet-list-item">' +
+                  '<div class="left-side">' +
+                  '<div class="avatar">' +
+                  '<img alt="" class="circle" src="' + header + '">' +
+                  '</div>' +
+                  '</div>' +
+                  '<div class="right-side">' +
+                  '<div class="nickname">' + clientname + '</div>' +
+                  '<div class="content">' + content + '</div>' +
+                  '</div>' +
+                  '</div>' +
+                  '</div>' +
+                  '</div>');
+                onOff = true;
+              }
+            }
+          }
+        })
+
+      } else {
+        $('.body').html('<div class="ranking-bullet"></div>')
+        $('.ranking-bullet').html(
+          '<div class="bureward-list-container">' +
+          '<div class="burewar-list">' +
+          '<div class="burewar-list-item">' +
+          '<div class="left-side">' +
+          '<span class="avatar">' +
+          '<img src="https://cdn2.qnzsvk.cn/live/Home/images/IMG_4380.JPG">' +
+          '</span>' +
+          '<div class="rigth-msg">' +
+          '<span class="nickname text-ellipsis" >第一名:小武</span>' +
+          '<div class="medal">送出汽车<img src="../img/gift_rocket_btn@2x.png" alt=""></div>' +
+          '</div>' +
+          '</div>' +
+          '<div class="rigth-side">25.00元</div>' +
+          '</div>' +
+          '</div>' +
+          '</div>'
+        );
+        onOff = false;
+      }
+    });
+    $('.close').click(function () {
+      $('.bullet-panel').slideToggle();
+    })
+  }
+
+  /* 置顶置低按钮 */
+  function stickTopBottom() {
+    console.log("成功1")
+    $('.dial-content').scroll(function () {
+//    console.log($('.dial-content').scrollTop())
+      if ($('.dial-content').scrollTop() >= 30) {
+        $('.stick').fadeIn(300);
+      } else {
+        $('.stick').fadeOut(300);
+      }
+    });
+    $('.stick-top').click(function () {
+      console.log("成功3")
+      $('.dial-content').animate({scrollTop: '0px'}, 800);
+    });
+    $('.stick-bottom').click(function () {
+      console.log("成功4")
+      var height = $('.dial-content').outerHeight(true)
+      $('.dial-content').animate({bottom: 0}, 800);
+    });
+  }
+
+</script>
+
+
+</body>
+
+</html>
