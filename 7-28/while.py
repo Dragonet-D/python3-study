@@ -4,3 +4,4 @@ while True:
   count = count + 1
   if count == 1000:
     break
+names = ['Alex','Tenglan','Eric']

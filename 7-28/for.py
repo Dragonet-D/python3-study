@@ -29,3 +29,27 @@ for i in range(10):
     print(j)
     if j > 5:
       break
+
+names = ['aa','bb']
+for name in names:
+  print(name)
+
+for x in [1,2,3,4,5,6]:
+  print(x)
+
+sum = 0
+for x in range(101):
+  sum += x
+print(sum)
+
+print(range(10))
+
+sum1 = 0
+n = 99
+while n > 0:
+  sum1 = sum1 + n
+  n = n - 2
+print(sum1)
+L = ['Bart','Lisa','Adam']
+for name in L:
+  print('Hello',name)
