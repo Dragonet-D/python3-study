@@ -75,3 +75,4 @@ print(name.swapcase())
 print(name.title())
 # 不够的用0填充
 print('lex li'.zfill(50))
+# 对字符串的修改相当于生成一个新的字符串
