@@ -57,4 +57,18 @@ len(list_1)
 print(1 in list_1)
 # x not in a
 print(1 not in list_1)
+# 删除第一个 并返回删除的那个
+print(list_1.pop())
+print(list_1.pop())
+print(list_1.pop())
+print(list_1.pop())
+print(list_1.pop())
 
+"""
+  Remove an element from a set if it is a member.
+  If the element is not a member, do nothing.
+"""
+list_2.discard(34) # 没有返回值
+# remove 要是没有的话会报错
+print(list_2)
+print(not None)
