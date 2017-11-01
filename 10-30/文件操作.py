@@ -21,7 +21,7 @@
 # # 不可 读
 # f.close()
 
-f = open('yesterdays','r', encoding="utf-8") # 文件句柄
+f = open('yesterdays','a', encoding="utf-8") # 文件句柄
 # for i in range(5):
 #   print(f.readline())
 # print(f.readlines())
@@ -50,30 +50,42 @@ for line in f:
 
 # 打印焦点的位置
 # 按照字符计数
-print(f.tell())
-print(f.readline().strip())
-print(f.readline().strip())
-print(f.readline().strip())
-print(f.tell())
-# 光标回到某个地方
-f.seek(10)
-print(f.readline().strip())
-print(f.tell())
-# 编码
-print(f.encoding)
-#
-print(f.buffer)
-# errors
-print(f.errors)
-# fileno 返回一个文件句柄在类里面的编号
-print(f.fileno())
-# name
-print(f.name)
-# seekable 如果是字符串是可以移的;
-print(f.seekable())
-# readable 判断文件是否可读
-print(f.readable())
-# writeable
-print(f.writable())
-# flush 默认等到缓存满了再写到内存里面
-print(f.flush())
+# print(f.tell())
+# print(f.readline().strip())
+# print(f.readline().strip())
+# print(f.readline().strip())
+# print(f.tell())
+# # 光标回到某个地方
+# f.seek(10)
+# print(f.readline().strip())
+# print(f.tell())
+# # 编码
+# print(f.encoding)
+# #
+# print(f.buffer)
+# # errors
+# print(f.errors)
+# # fileno 返回一个文件句柄在类里面的编号
+# print(f.fileno())
+# # name
+# print(f.name)
+# # seekable 如果是字符串是可以移的;
+# print(f.seekable())
+# # readable 判断文件是否可读
+# print(f.readable())
+# # writeable
+# print(f.writable())
+# # flush 默认等到缓存满了再写到内存里面
+# # 强制刷新 写一行刷一行 刷到内存中
+# print(f.flush())
+print(f.closed)
+
+print(f.closed)
+# truncate 截断
+# 什么都不写就清空
+# f.seek(10)
+f.truncate(20)
+
+
+
+f.close()
