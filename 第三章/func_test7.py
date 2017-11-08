@@ -76,5 +76,17 @@ def test6(name, age=18, *args, **kwargs):
 def logger(source):
   print('from %s' % source)
 
+
 test6('alex', 34, sex='m', hobby='tesla')
+
+
 # test6('alex', 34, 12, 123, sex='m', hobby='tesla')
+
+def func_name(arg1, arg2, arg3, *args, **kwargs):
+  pass
+
+
+func_name(5, 3)
+'''
+  位置参数
+'''
