@@ -18,6 +18,7 @@ test1(*[1, 2, 3, 4, 5])  # args = tuple([1,2,3,4,5])
 print([*[1, 2, 3, 4, 5, 6]])
 
 
+# *args 接收N个位置 参数转换成元祖的方式
 def test2(x, *args):
   print(x)
   print(args)
@@ -27,7 +28,7 @@ test2(1, 2, 3, 4, 5)
 
 
 # 传字典
-# **kwargs: 把n个关键字参数转换成字典的方式
+# **kwargs: 把n个关键字参数 转换成字典的方式
 def test3(**kwargs):
   print(kwargs)
   print(kwargs['name'])
@@ -58,4 +59,22 @@ def test5(name, age=18, **kwargs):
   print(kwargs)
 
 
-test5('a', 12, naaa='123')
+test5('a', age=1233, naaa='123', hobby='tesla')
+test5('a', 1233, naaa='123', hobby='tesla')
+test5('a', naaa='123', hobby='tesla')
+test5('a', naaa='123', hobby='tesla', age=22)
+
+
+def test6(name, age=18, *args, **kwargs):
+  print(name)
+  print(age)
+  print(args)
+  print(kwargs)
+  logger('test4')
+
+
+def logger(source):
+  print('from %s' % source)
+
+test6('alex', 34, sex='m', hobby='tesla')
+# test6('alex', 34, 12, 123, sex='m', hobby='tesla')
