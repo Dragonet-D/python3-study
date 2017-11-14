@@ -4,7 +4,7 @@
 #
 #
 # foo()
-
+# 出错 运行到bar的时候没定义
 
 # def foo():
 #   print('in the foo')
