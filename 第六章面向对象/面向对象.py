@@ -44,3 +44,9 @@ d3 = Dog('陈老炮')
 d1.bark()
 d2.bark()
 d3.bark()
+
+
+class Role(object):
+  def __init__(self, name, life):
+    self.name = name
+    self.life = life
