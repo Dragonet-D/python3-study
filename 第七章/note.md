@@ -24,4 +24,5 @@
                 super(Foo,self).__init__(name,age,sex)
     多态: 
         接口的重用, 一种接口, 多种实现
-    
+#> Socket
+    所有数据的传输必须要用bytes类型
