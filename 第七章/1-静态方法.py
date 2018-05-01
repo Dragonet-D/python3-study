@@ -35,3 +35,6 @@ class Person(object):
 
 p = Person('kfc')
 p.eat()
+
+class Ppp():
+  food = '包子'
