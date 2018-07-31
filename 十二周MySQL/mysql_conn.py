@@ -13,3 +13,4 @@ data = [
 cursor.executemany("insert into student (age, name, register_date) values (%s, %s,%s)", data)
 conn.commit()
 conn.close()
+print(cursor.fetchall())
